@@ -1,0 +1,12 @@
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\bin\Debug\Snake.exe
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\bin\Debug\Snake.pdb
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\obj\Debug\Snake.csprojResolveAssemblyReference.cache
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\obj\Debug\MainWindow.baml
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\obj\Debug\MainWindow.g.cs
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\obj\Debug\App.g.cs
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\obj\Debug\Snake_MarkupCompile.cache
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\obj\Debug\Snake.g.resources
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\obj\Debug\Snake.Properties.Resources.resources
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\obj\Debug\Snake.csproj.GenerateResource.Cache
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\obj\Debug\Snake.exe
+C:\Users\sokald\Documents\Visual Studio 2012\Projects\Snake\Snake\obj\Debug\Snake.pdb
