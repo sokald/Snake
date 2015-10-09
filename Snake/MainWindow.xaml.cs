@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Snake
 {
@@ -21,6 +22,11 @@ namespace Snake
     {
         private MySnake _snake;
         private static readonly int SIZE = 10;
+        //direction of the _snake
+        private int _directionX = 1;
+        private int _directionY = 0;
+
+        private DispatcherTimer _timer;
 
         public MainWindow()
         {
@@ -28,6 +34,7 @@ namespace Snake
 
             InitBoard();
             InitSnake();
+            initTimer();
         }
 
         void InitBoard()
@@ -39,11 +46,11 @@ namespace Snake
                 grid.ColumnDefinitions.Add(columnDefinitions);
             }
 
-            for (int j = 0; j < grid.Height / SIZE; j++ )
+            for (int j = 0; j < grid.Height / SIZE; j++)
             {
                 RowDefinition rowDefinition = new RowDefinition();
-                RowDefinition.Height = new GridLength(SIZE);
-                grid.RowDefinitions.Add(RowDefinition);
+                rowDefinition.Height = new GridLength(SIZE);
+                grid.RowDefinitions.Add(rowDefinition);
             }
             _snake = new MySnake();
         }
@@ -57,5 +64,57 @@ namespace Snake
             _snake.RedrawSnake();
         }
 
+        //move snake
+        private void MoveSnake()
+        {
+            for (int i = _snake.Parts.Count - 1; i > 1; i-- )
+            {
+                _snake.Parts[i].X = _snake.Parts[i - 1].X;
+                _snake.Parts[i].Y = _snake.Parts[i - 1].Y;
+            }
+            _snake.Parts[0].X = _snake.Head.X;
+            _snake.Parts[0].Y = _snake.Head.Y;
+            _snake.Head.X += _directionX;
+            _snake.Head.Y += _directionY;
+            _snake.RedrawSnake();
+        }
+
+        //timer
+        void initTimer()
+        {
+            _timer = new DispatcherTimer();
+            _timer.Tick += new EventHandler(_timer_Tick);
+            _timer.Interval = new TimeSpan(0,0,0,0,100);
+            _timer.Start();
+        }
+
+        void _timer_Tick(object sender, EventArgs e)
+        {
+            MoveSnake();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Left)
+            {
+                _directionX = -1;
+                _directionY = 0;
+            }
+            if(e.Key == Key.Right)
+            {
+                _directionX = 1;
+                _directionY = 0;
+            }
+            if(e.Key == Key.Up)
+            {
+                _directionX = 0; 
+                _directionY = -1;
+            }
+            if (e.Key == Key.Down)
+            {
+                _directionX = 0;
+                _directionY = 1;
+            }
+        }
     }
 }
