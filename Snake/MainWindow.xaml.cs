@@ -91,9 +91,16 @@ namespace Snake
             _snake.Parts[0].Y = _snake.Head.Y;
             _snake.Head.X += _directionX;
             _snake.Head.Y += _directionY;
-            _snake.RedrawSnake();
-            if (CheckFood())
-                RedrawFood();
+            if (CheckCollision())
+            {
+                EndGame();
+            }
+            else
+            {
+                if (CheckFood())
+                    RedrawFood();
+                _snake.RedrawSnake();
+            }
         }
 
         //timer
@@ -159,16 +166,18 @@ namespace Snake
                     {
                         _food.X = x;
                         _food.Y = y;
+                        return true;
                     }
                 }
 
-                for(int i=0; i<grid.Width/SIZE;i++)
+                for(int i=0; i<grid.Width/SIZE; i++)
                     for (int j = 0; j < grid.Height / SIZE; j++)
                     {
                         if (IsFieldFree(i,j))
                         {
                             _food.X = i;
                             _food.Y = j;
+                            return true;
                         }
                     }
                 EndGame();
@@ -201,6 +210,34 @@ namespace Snake
         {
             Grid.SetColumn(_food.Rect, _food.X);
             Grid.SetRow(_food.Rect, _food.Y);
+        }
+
+        bool CheckCollision()
+        {
+            if(CheckBoardCollision())
+                return true;
+            if(CheckItSelfCollision())
+                return true;
+            return false;
+        }
+
+        bool CheckBoardCollision()
+        {
+            if(_snake.Head.X < 0 || _snake.Head.X >grid.Width/SIZE)
+                return true;
+            if(_snake.Head.Y <0 | _snake.Head.Y >grid.Height/SIZE)
+                return true;
+            return false;
+        }
+
+        bool CheckItSelfCollision()
+        {
+            foreach(SnakePart snakePart in _snake.Parts)
+            {
+                if(_snake.Head.X == snakePart.X && _snake.Head.Y == snakePart.Y)
+                    return true;
+            }
+            return false;
         }
     }
 }
