@@ -71,7 +71,18 @@ namespace Snake
         //move snake
         private void MoveSnake()
         {
-            for (int i = _snake.Parts.Count - 1; i >= 1; i-- )
+            //for (int i = _snake.Parts.Count - 1; i >= 1; i-- )
+
+            int snakePartCount = _snake.Parts.Count;
+            if (_partsToAdd>0)
+            {
+                SnakePart newPart = new SnakePart(_snake.Parts[_snake.Parts.Count - 1].X, _snake.Parts[_snake.Parts.Count-1].Y );
+                grid.Children.Add(newPart.Rect);
+                _snake.Parts.Add(newPart);
+                _partsToAdd--;
+            }
+
+            for (int i = snakePartCount - 1; i >= 1; i-- )
             {
                 _snake.Parts[i].X = _snake.Parts[i - 1].X;
                 _snake.Parts[i].Y = _snake.Parts[i - 1].Y;
