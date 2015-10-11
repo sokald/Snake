@@ -75,8 +75,6 @@ namespace Snake
         //move snake
         private void MoveSnake()
         {
-            //for (int i = _snake.Parts.Count - 1; i >= 1; i-- )
-
             int snakePartCount = _snake.Parts.Count;
             if (_partsToAdd>0)
             {
@@ -192,15 +190,13 @@ namespace Snake
         private bool IsFieldFree(int x, int y)
         {
             if(_snake.Head.X == x && _snake.Head.Y == y)
-            {
                 return false;
+
                 foreach(SnakePart snakePart in _snake.Parts)
                 {
                     if (snakePart.X == x && snakePart.Y == y)
                         return false;
                 }
-                return false;
-            }
             return true;
         }
 
@@ -279,7 +275,7 @@ namespace Snake
         {
             foreach(Wall wall in _walls)
             {
-                if (_snake.Head.X == wall.X && _snake.Head.X < wall.X + wall.Width && _snake.Head.Y >= wall.Y && _snake.Head.Y < wall.Y + wall.Height)
+                if (_snake.Head.X >= wall.X && _snake.Head.X < wall.X + wall.Width && _snake.Head.Y >= wall.Y && _snake.Head.Y < wall.Y + wall.Height)
                     return true;
             }
             return false;
