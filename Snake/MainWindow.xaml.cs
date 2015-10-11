@@ -31,6 +31,9 @@ namespace Snake
         private SnakePart _food;
         private int _partsToAdd;
 
+        //walls
+        private List<Wall> _walls;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +42,7 @@ namespace Snake
             InitSnake();
             initTimer();
             initFood();
+            initWall();
         }
 
         void InitBoard()
@@ -218,6 +222,8 @@ namespace Snake
                 return true;
             if(CheckItSelfCollision())
                 return true;
+            if(CheckWallCollision())
+                return true;
             return false;
         }
 
@@ -235,6 +241,45 @@ namespace Snake
             foreach(SnakePart snakePart in _snake.Parts)
             {
                 if(_snake.Head.X == snakePart.X && _snake.Head.Y == snakePart.Y)
+                    return true;
+            }
+            return false;
+        }
+
+        void initWall()
+        {
+            _walls = new List<Wall>();
+            
+            Wall wall1 = new Wall(19,15,3,30);
+            grid.Children.Add(wall1.Rect);
+            Grid.SetColumn(wall1.Rect, wall1.X);
+            Grid.SetRow(wall1.Rect, wall1.Y);
+            Grid.SetColumnSpan(wall1.Rect, wall1.Width);
+            Grid.SetRowSpan(wall1.Rect, wall1.Height);
+            _walls.Add(wall1);
+
+            Wall wall2 = new Wall(39, 15, 3, 30);
+            grid.Children.Add(wall2.Rect);
+            Grid.SetColumn(wall2.Rect, wall2.X);
+            Grid.SetRow(wall2.Rect, wall2.Y);
+            Grid.SetColumnSpan(wall2.Rect, wall2.Width);
+            Grid.SetRowSpan(wall2.Rect, wall2.Height);
+            _walls.Add(wall2);
+
+            Wall wall3 = new Wall(59, 15, 3, 30);
+            grid.Children.Add(wall3.Rect);
+            Grid.SetColumn(wall3.Rect, wall3.X);
+            Grid.SetRow(wall3.Rect, wall3.Y);
+            Grid.SetColumnSpan(wall3.Rect, wall3.Width);
+            Grid.SetRowSpan(wall3.Rect, wall3.Height);
+            _walls.Add(wall3);
+        }
+
+        bool CheckWallCollision()
+        {
+            foreach(Wall wall in _walls)
+            {
+                if (_snake.Head.X == wall.X && _snake.Head.X < wall.X + wall.Width && _snake.Head.Y >= wall.Y && _snake.Head.Y < wall.Y + wall.Height)
                     return true;
             }
             return false;
